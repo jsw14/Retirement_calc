@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Retirement Planning Calculator</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link href="retire.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC&family=Andada+Pro&display=swap" rel="stylesheet">
+        
+    </head>
+    <body>
+        <header> 
+            <h1>Retirement Planning Calculator</h1>
+        </header>
+        <form>
+            <div>
+                <label for="current_age">Current Age</label>
+                <input type="number" name="current_age" id="current_age" min="1" max="150" required>
+            </div>
+            <div>
+                <label for="retirement_age">Age of Retirement</label>
+                <input type="number" name="retirement_age" id="retirement_age" min="18" max="150" placeholder="67" required>
+            </div>
+            <div>
+                <label for="yearly_salary">Yearly Salary</label>
+                <input type="number" name="yearly_salary" id="yearly_salary" min="0" step="5000" required>
+            </div>
+            <div>
+                <label for="salary_contribution">401K Contribution (% of salary)</label>
+                <input type="number" name="salary_contribution" id="salary_contribution" min="0" max="100" required>
+            </div>
+            <div>
+                <label for="employer_matching">401K Employer Matching (% of salary)</label>
+                <input type="number" name="employer_matching" id="employer_matching" min="0" max="100" required>
+            </div>
+            <div>
+                <label for="roth_ira_contribution">Roth IRA Contribution</label>
+                <input type="number" name="roth_ira_contribution" id="roth_ira_contribution" min="0" max="6000" required>
+            </div>
+            <div>
+                <label for="avg_annual_return">Avg Annual Return (%)</label>
+                <input type="number" name="avg_annual_return" id="avg_annual_return" min="0" placeholder="6" required>
+            </div>
+            <button type="button" id="reset" onclick="location.reload();" value="Refesh Page">Reset</button>
+            <button type="button" id="run" onclick="retirement_calc()">Run</button>
+        </form>
+        <div id="outputs">
+            <p id="year_contribution">  </p>
+            <p id="retirement_savings">  </p>
+            <p id="contribution">  </p>
+            <p id="interest">  </p>
+        </div>
+        <script>
+            function retirement_calc(){
+                var current_age = parseInt(document.getElementById("current_age").value);
+                var retirement_age = parseInt(document.getElementById("retirement_age").value);
+                var yearly_salary = parseFloat(document.getElementById("yearly_salary").value);
+                var salary_contribution = 10**-2 * parseFloat(document.getElementById("salary_contribution").value);
+                var employer_matching = 10**-2 * parseFloat(document.getElementById("employer_matching").value);
+                var roth_ira_contribution = parseFloat(document.getElementById("roth_ira_contribution").value);
+                var avg_annual_return = 1 + 10**-2 * parseFloat(document.getElementById("avg_annual_return").value);
+        
+                var years_until_retirement = retirement_age - current_age;
+                var four_o_one_k_contribution = (yearly_salary * salary_contribution) + (yearly_salary * employer_matching);
+                var yearly_contribution = four_o_one_k_contribution + roth_ira_contribution;
+                var total_contribution = yearly_contribution * years_until_retirement;
+        
+                var savings = 0;
+                while (years_until_retirement > 0) {
+                    savings += yearly_contribution;
+                    savings *= avg_annual_return;
+                    years_until_retirement -= 1;
+                }
+                
+                var total_interest = savings - total_contribution
+        
+                document.getElementById("year_contribution").innerHTML = `Your yearly contribution is ${yearly_contribution.toLocaleString("en-US", {style:"currency", currency:"USD"})}`;
+                document.getElementById("retirement_savings").innerHTML = `At the age of ${retirement_age}, your total retirement savings is ${savings.toLocaleString("en-US", {style:"currency", currency:"USD"})}`;
+                document.getElementById("contribution").innerHTML = `Your total contribution: ${total_contribution.toLocaleString("en-US", {style:"currency", currency:"USD"})}`;
+                document.getElementById("interest").innerHTML = `Your total interest: ${total_interest.toLocaleString("en-US", {style:"currency", currency:"USD"})}`;
+                
+            }
+        </script>
+    </body>
+</html>
