@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    font-family: 'Andada Pro', serif;
+    font-weight: 800;
+    text-align: center;
+    background-color: #87BADE;
+    height: 155px;
+    justify-content: center;
+}
+
+h1 {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+}
+
+form {
+    background-color:rgba(135, 186, 222, 0.26);
+    position: absolute;
+    width: 451px;
+    height: 492px;
+    left: 67px;
+    top: 220px;
+    font-family: 'Alegreya SC', serif;
+    padding-top: 15px;
+    padding-left: 5px;
+}
+
+label, input {
+    margin: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    height: 25px;
+}
+
+#run {
+    position: absolute;
+    width: 70px;
+    height: 30px;
+    left: 325px;
+    top: 440px;
+}
+
+#reset {
+    position: absolute;
+    width: 70px;
+    height: 30px;
+    left: 50px;
+    top: 440px;
+}
+
+#outputs {
+    background-color: rgba(135, 186, 222, 0.51);
+    position: absolute;
+    width: 745px;
+    height: 507px;
+    left: 678px;
+    top: 220px;
+    font-family: 'Andada Pro', serif;
+}
+
+#outputs p {
+    margin: 10px;
+    padding: 40px 10px;
+    height: 25px;
+}
